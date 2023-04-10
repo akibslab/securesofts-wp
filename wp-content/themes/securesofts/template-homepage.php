@@ -61,9 +61,6 @@ $second_carousel_items = function_exists('get_field') ? get_field('second_carous
 $blog_switcher = function_exists('get_field') ? get_field('want_to_show_blog_section') : true;
 $blog_title = function_exists('get_field') ? get_field('blog_title') : securesofts_kses('From <span>our Blog</span>');
 $show_items = function_exists('get_field') ? get_field('show_items') : esc_html__('3', 'securesofts');
-
-// Testimonial
-$testimonial_switcher = function_exists('get_field') ? get_field('want_to_show_testimonial') : true;
 ?>
 <!-- start: Hero Area -->
 <section class="hero-area" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/img/hero/shape.svg'); ?>');">

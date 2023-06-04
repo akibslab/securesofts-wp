@@ -23,6 +23,9 @@ $clients = function_exists('get_field') ? get_field('clients') : '';
 $about_switcher = function_exists('get_field') ? get_field('want_about_section') : true;
 $about_title = function_exists('get_field') ? get_field('about_title') : securesofts_kses('We are<br><span>Securesoft</span>');
 $about_content = function_exists('get_field') ? get_field('about_content') : '';
+
+//services section 
+$services_switcher = function_exists('get_field') ? get_field('want_services_section') : true;
 $html_conversion = function_exists('get_field') ? get_field('html_conversion') : '';
 $wordpress_conversion = function_exists('get_field') ? get_field('wordpress_conversion') : '';
 
@@ -43,10 +46,10 @@ $work_button_text = function_exists('get_field') ? get_field('work_button_text')
 $work_button_link = function_exists('get_field') ? get_field('work_button_link') : esc_html__('#', 'securesofts');
 $works_show = function_exists('get_field') ? get_field('works_show') : false;
 
-// services section
-$services_switcher = function_exists('get_field') ? get_field('want_services_section') : true;
-$services_title = function_exists('get_field') ? get_field('services_title') : securesofts_kses('What to expect <br><span>from us</span>');
-$services = function_exists('get_field') ? get_field('services') : '';
+// features section
+$features_switcher = function_exists('get_field') ? get_field('want_features_section') : true;
+$features_title = function_exists('get_field') ? get_field('features_title') : securesofts_kses('What to expect <br><span>from us</span>');
+$features = function_exists('get_field') ? get_field('features') : '';
 
 // Testimonial section
 $testimonial_switcher = function_exists('get_field') ? get_field('want_testimonial_section') : true;
@@ -151,7 +154,15 @@ $show_items = function_exists('get_field') ? get_field('show_items') : esc_html_
           <?php endif; ?>
         </div>
       </div>
+    </div>
+  </section>
+<?php endif; ?>
+<!-- end: About Area -->
 
+<!-- start: Services Section -->
+<?php if (!empty($services_switcher)) : ?>
+  <div class="services_section">
+    <div class="container">
       <div class="row gx-lg-5 padding_top">
         <?php if (!empty($html_conversion)) : ?>
           <div class="col-lg-6">
@@ -179,7 +190,7 @@ $show_items = function_exists('get_field') ? get_field('show_items') : esc_html_
                   <?php foreach ($html_conversion['conversions'] as $conversion) : ?>
                     <li>
                       <a href="<?php echo esc_url($conversion['link']); ?>">
-                        <img src="<?php echo esc_url($conversion['image']['url']); ?>" alt="<?php echo get_post_meta($conversion['image']['id'], '_wp_attachment_image_alt', true); ?>">
+                        <img src="<?php echo esc_url($conversion['image']); ?>" alt="<?php echo get_post_meta(attachment_url_to_postid($conversion['image']), '_wp_attachment_image_alt', true); ?>">
                         <span><?php echo esc_html__($conversion['label'], 'securesofts'); ?></span>
                       </a>
                     </li>
@@ -219,7 +230,7 @@ $show_items = function_exists('get_field') ? get_field('show_items') : esc_html_
                   <?php foreach ($wordpress_conversion['conversions'] as $conversion) : ?>
                     <li>
                       <a href="<?php echo esc_url($conversion['link']); ?>">
-                        <img src="<?php echo esc_url($conversion['image']['url']); ?>" alt="<?php echo get_post_meta($conversion['image']['id'], '_wp_attachment_image_alt', true); ?>">
+                        <img src="<?php echo esc_url($conversion['image']); ?>" alt="<?php echo get_post_meta(attachment_url_to_postid($conversion['image']), '_wp_attachment_image_alt', true); ?>">
                         <span><?php echo esc_html__($conversion['label'], 'securesofts'); ?></span>
                       </a>
                     </li>
@@ -233,9 +244,9 @@ $show_items = function_exists('get_field') ? get_field('show_items') : esc_html_
 
       </div>
     </div>
-  </section>
+  </div>
 <?php endif; ?>
-<!-- end: About Area -->
+<!-- end: Services Section -->
 
 <!-- start: Suited Area -->
 <?php if (!empty($suited_switcher)) : ?>
@@ -387,40 +398,40 @@ $show_items = function_exists('get_field') ? get_field('show_items') : esc_html_
 <?php endif; ?>
 <!-- end: Work Area -->
 
-<!-- start: Services Area -->
-<?php if (!empty($services_switcher)) : ?>
-  <section class="services-area">
+<!-- start: Features Area -->
+<?php if (!empty($features_switcher)) : ?>
+  <section class="features-area">
     <div class="container">
       <div class="row">
         <div class="col">
-          <?php if (!empty($services_title)) : ?>
+          <?php if (!empty($features_title)) : ?>
             <div class="section_title text-center">
-              <h2><?php echo securesofts_kses($services_title); ?></h2>
+              <h2><?php echo securesofts_kses($features_title); ?></h2>
             </div>
           <?php endif; ?>
         </div>
       </div>
 
-      <?php if (!empty($services)) : ?>
+      <?php if (!empty($features)) : ?>
         <div class="row">
           <div class="col">
-            <div class="services">
+            <div class="features">
 
-              <?php foreach ($services as $service) : ?>
-                <div class="single_service">
-                  <?php if (!empty($service['image'])) : ?>
+              <?php foreach ($features as $feature) : ?>
+                <div class="single_feature">
+                  <?php if (!empty($feature['image'])) : ?>
                     <div class="icon">
-                      <img src="<?php echo esc_url($service['image']['url']) ?>" alt="<?php echo get_post_meta($service['image']['id'], '_wp_attachment_image_alt', true); ?>">
+                      <img src="<?php echo esc_url($feature['image']['url']) ?>" alt="<?php echo get_post_meta($service['image']['id'], '_wp_attachment_image_alt', true); ?>">
                     </div>
                   <?php endif;
-                  if (!empty($service['title'])) : ?>
+                  if (!empty($feature['title'])) : ?>
                     <div class="heading">
-                      <h4><?php echo esc_html__($service['title'], 'securesofts'); ?></h4>
+                      <h4><?php echo esc_html__($feature['title'], 'securesofts'); ?></h4>
                     </div>
                   <?php endif;
-                  if (!empty($service['description'])) : ?>
+                  if (!empty($feature['description'])) : ?>
                     <div class="description">
-                      <p><?php echo esc_html__($service['description'], 'securesofts'); ?></p>
+                      <p><?php echo esc_html__($feature['description'], 'securesofts'); ?></p>
                     </div>
                   <?php endif; ?>
                 </div>
@@ -432,7 +443,7 @@ $show_items = function_exists('get_field') ? get_field('show_items') : esc_html_
     </div>
   </section>
 <?php endif; ?>
-<!-- end: Services Area -->
+<!-- end: Features Area -->
 
 <!-- start: Testimonial Area -->
 <?php if (!empty($testimonial_switcher)) : ?>

@@ -591,7 +591,7 @@ button {
 .about-area {
 	padding-top: 120px;
 }
-.about-area .padding_top {
+.services_section {
 	padding-top: 80px;
 }
 .design_conversion {
@@ -875,17 +875,17 @@ button {
 }
 /* end: Works Area */
 
-/* Start Header Area
+/* Start features Area
 ==================================================*/
-.services-area {
+.features-area {
 	padding-top: 120px;
 	padding-bottom: 120px;
 	background-color: var(--color-bg);
 }
-.services-area .section_title {
+.features-area .section_title {
 	padding-bottom: 50px;
 }
-.services {
+.features {
 	background-color: var(--color-white);
 	padding: 48px 48px 0 48px;
 	display: flex;
@@ -893,20 +893,20 @@ button {
 	justify-content: space-between;
 }
 
-.services .single_service {
+.features .single_feature {
 	flex: 0 0 33%;
 	max-width: 33%;
 	margin-bottom: 60px;
 }
 
-.services .single_service .icon {
+.features .single_feature .icon {
 	width: 32px;
 	margin-bottom: 24px;
 }
-.services .single_service .heading h4 {
+.features .single_feature .heading h4 {
 	margin-bottom: 12px;
 }
-/* end: Services Area */
+/* end: features Area */
 
 /* Start Testimonial Area
 ==================================================*/

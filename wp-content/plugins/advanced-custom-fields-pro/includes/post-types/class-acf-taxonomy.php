@@ -60,6 +60,8 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 		 * Constructs the class.
 		 */
 		public function __construct() {
+			$this->register_post_type();
+
 			// Include admin classes in admin.
 			if ( is_admin() ) {
 				acf_include( 'includes/admin/admin-internal-post-type-list.php' );
@@ -71,6 +73,48 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 			parent::__construct();
 
 			add_action( 'acf/init', array( $this, 'register_taxonomies' ), 6 );
+		}
+
+		/**
+		 * Registers the acf-taxonomy custom post type with WordPress.
+		 *
+		 * @since 6.1
+		 */
+		public function register_post_type() {
+			$cap = acf_get_setting( 'capability' );
+
+			register_post_type(
+				'acf-taxonomy',
+				array(
+					'labels'          => array(
+						'name'               => __( 'Taxonomies', 'acf' ),
+						'singular_name'      => __( 'Taxonomies', 'acf' ),
+						'add_new'            => __( 'Add New', 'acf' ),
+						'add_new_item'       => __( 'Add New Taxonomy', 'acf' ),
+						'edit_item'          => __( 'Edit Taxonomy', 'acf' ),
+						'new_item'           => __( 'New Taxonomy', 'acf' ),
+						'view_item'          => __( 'View Taxonomy', 'acf' ),
+						'search_items'       => __( 'Search Taxonomies', 'acf' ),
+						'not_found'          => __( 'No Taxonomies found', 'acf' ),
+						'not_found_in_trash' => __( 'No Taxonomies found in Trash', 'acf' ),
+					),
+					'public'          => false,
+					'hierarchical'    => true,
+					'show_ui'         => true,
+					'show_in_menu'    => false,
+					'_builtin'        => false,
+					'capability_type' => 'post',
+					'capabilities'    => array(
+						'edit_post'    => $cap,
+						'delete_post'  => $cap,
+						'edit_posts'   => $cap,
+						'delete_posts' => $cap,
+					),
+					'supports'        => false,
+					'rewrite'         => false,
+					'query_var'       => false,
+				)
+			);
 		}
 
 		/**
@@ -180,45 +224,6 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 		}
 
 		/**
-		 * Register the CPT required for ACF taxonomies.
-		 */
-		public function register_post_type() {
-			$cap = acf_get_setting( 'capability' );
-			register_post_type(
-				$this->post_type,
-				array(
-					'labels'          => array(
-						'name'               => __( 'Taxonomies', 'acf' ),
-						'singular_name'      => __( 'Taxonomies', 'acf' ),
-						'add_new'            => __( 'Add New', 'acf' ),
-						'add_new_item'       => __( 'Add New Taxonomy', 'acf' ),
-						'edit_item'          => __( 'Edit Taxonomy', 'acf' ),
-						'new_item'           => __( 'New Taxonomy', 'acf' ),
-						'view_item'          => __( 'View Taxonomy', 'acf' ),
-						'search_items'       => __( 'Search Taxonomies', 'acf' ),
-						'not_found'          => __( 'No Taxonomies found', 'acf' ),
-						'not_found_in_trash' => __( 'No Taxonomies found in Trash', 'acf' ),
-					),
-					'public'          => false,
-					'hierarchical'    => true,
-					'show_ui'         => true,
-					'show_in_menu'    => false,
-					'_builtin'        => false,
-					'capability_type' => 'post',
-					'capabilities'    => array(
-						'edit_post'    => $cap,
-						'delete_post'  => $cap,
-						'edit_posts'   => $cap,
-						'delete_posts' => $cap,
-					),
-					'supports'        => false,
-					'rewrite'         => false,
-					'query_var'       => false,
-				)
-			);
-		}
-
-		/**
 		 * Validates post type values before allowing save from the global $_POST object.
 		 * Errors are added to the form using acf_add_internal_post_type_validation_error().
 		 *
@@ -238,7 +243,7 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 
 			if ( preg_match( '/^[a-z0-9_-]*$/', $taxonomy_key ) !== 1 ) {
 				$valid = false;
-				acf_add_internal_post_type_validation_error( 'taxonomy', __( 'The taxonomy key must only contain lowercase alphanumeric characters, underscores or dashes.', 'acf' ) );
+				acf_add_internal_post_type_validation_error( 'taxonomy', __( 'The taxonomy key must only contain lower case alphanumeric characters, underscores or dashes.', 'acf' ) );
 			}
 
 			if ( in_array( $taxonomy_key, acf_get_wp_reserved_terms(), true ) ) {
@@ -482,9 +487,9 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 			$post         = $this->validate_post( $post );
 			$taxonomy_key = $post['taxonomy'];
 			$objects      = (array) $post['object_type'];
-			$objects      = var_export( $objects, true );
+			$objects      = var_export( $objects, true ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions -- Used for PHP export.
 			$args         = $this->get_taxonomy_args( $post );
-			$args         = var_export( $args, true );
+			$args         = var_export( $args, true ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions -- Used for PHP export.
 
 			if ( ! $args ) {
 				return $return;
@@ -493,7 +498,7 @@ if ( ! class_exists( 'ACF_Taxonomy' ) ) {
 			$args    = $this->format_code_for_export( $args );
 			$objects = $this->format_code_for_export( $objects );
 
-			$return .= "register_taxonomy('{$taxonomy_key}', $objects, {$args} );\r\n\r\n";
+			$return .= "register_taxonomy( '{$taxonomy_key}', {$objects}, {$args} );\r\n";
 
 			return esc_textarea( $return );
 		}

@@ -29,7 +29,7 @@
 	.about-area .section_title {
 		margin-bottom: 40px;
 	}
-	.about-area .padding_top {
+	.services_section {
 		padding-top: 60px;
 	}
 	.design_conversion.wp {
@@ -94,17 +94,17 @@
 	.works-area .section_title {
 		padding-bottom: 40px;
 	}
-	.services-area {
+	.features-area {
 		padding-top: 80px;
 		padding-bottom: 80px;
 	}
-	.services-area .section_title {
+	.features-area .section_title {
 		padding-bottom: 40px;
 	}
-	.services {
+	.features {
 		padding: 25px 25px 0 25px;
 	}
-	.services .single_service {
+	.features .single_feature {
 		margin-bottom: 30px;
 	}
 	.testimonial-area {
@@ -220,7 +220,7 @@
 	.about-area .section_title {
 		margin-bottom: 30px;
 	}
-	.about-area .padding_top {
+	.services_section {
 		padding-top: 50px;
 	}
 	.section_title h2 {
@@ -293,22 +293,22 @@
 	.filter_tabs {
 		margin-bottom: 25px;
 	}
-	.services-area {
+	.features-area {
 		padding-top: 60px;
 		padding-bottom: 60px;
 	}
-	.services-area .section_title {
+	.features-area .section_title {
 		padding-bottom: 40px;
 	}
-	.services {
+	.features {
 		padding: 25px 25px 0 25px;
 	}
-	.services .single_service {
+	.features .single_feature {
 		margin-bottom: 30px;
 		max-width: 100%;
 		flex: 0 0 100%;
 	}
-	.services .single_service .icon {
+	.features .single_feature .icon {
 		margin-bottom: 20px;
 	}
 	.testimonial-area {

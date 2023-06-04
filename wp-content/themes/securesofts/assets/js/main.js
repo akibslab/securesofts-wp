@@ -131,10 +131,11 @@
 					stagePadding: 130,
 				},
 				1200: {
-					items: 3,
-					stagePadding: 150,
+					items: 2,
+					stagePadding: 200,
 				},
 				1400: {
+					items: 3,
 					stagePadding: 230,
 				},
 			},
